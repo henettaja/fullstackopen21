@@ -6,7 +6,8 @@ A specific section's assignments can be found from it's respective folder:
 
 - Osa0
 - Osa1
-- - Kurssitiedot
+  - Kurssitiedot
+  - unicafe
 - Osa2
 
 etc.
