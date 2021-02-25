@@ -1,5 +1,5 @@
 import React from 'react'
-import Part from "./Part";
+import Part from "./Part"
 
 const Content = ({ parts }) => {
     return (
@@ -11,4 +11,4 @@ const Content = ({ parts }) => {
     )
 }
 
-export default Content;
+export default Content

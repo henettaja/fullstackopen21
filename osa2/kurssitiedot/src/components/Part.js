@@ -10,4 +10,4 @@ const Part = ({ partName, exercises }) => {
     );
 }
 
-export default Part;
+export default Part
