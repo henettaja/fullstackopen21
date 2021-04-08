@@ -4,10 +4,12 @@
   "description": "",
   "scripts": {
     "start": "parcel index.html",
-    "build": "parcel build index.html"
+    "build": "parcel build index.html",
+    "server": "json-server -p3001 --watch db.json"
   },
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.21.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
@@ -17,6 +19,7 @@
     "@parcel/transformer-html": "^2.0.0-nightly.610",
     "@parcel/transformer-posthtml": "^2.0.0-nightly.610",
     "babel-preset-nano-react-app": "^0.1.0",
+    "json-server": "^0.16.3",
     "parcel": "^2.0.0-alpha.3.2"
   },
   "babel": {
