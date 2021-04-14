@@ -1,9 +1,9 @@
 import React from "react"
 
-const Contact = ({ name, number }) => {
+const Contact = ({ name, number, handleRemovePerson }) => {
 	return (
 		<div>
-			{name} {number}
+			{name} {number} <button onClick={handleRemovePerson}>Remove</button>
 		</div>
 	)
 }
