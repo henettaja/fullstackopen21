@@ -1,5 +1,5 @@
 {
-    "persons": [
+  "persons": [
     {
       "name": "Arto Hellas",
       "number": "040-1231244",
@@ -15,20 +15,25 @@
       "number": "040-12345678",
       "id": 3
     },
-    { 
-      "name": "Ada Lovelace", 
+    {
+      "name": "Ada Lovelace",
       "number": "39-44-5323523",
       "id": 4
     },
-    { 
-      "name": "Dan Abramov", 
+    {
+      "name": "Dan Abramov",
       "number": "12-43-234345",
       "id": 5
     },
-    { 
-      "name": "Mary Poppendieck", 
+    {
+      "name": "Mary Poppendieck",
       "number": "39-23-6423122",
       "id": 6
+    },
+    {
+      "name": "Matti Meikäläinen",
+      "number": "12-34-5678901",
+      "id": 7
     }
   ]
 }
