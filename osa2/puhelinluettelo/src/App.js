@@ -51,9 +51,23 @@ const App = () => {
 		}
 		persons.some((person) => person.name === newName)
 			? alert(`${newName} is already in the phonebook`)
-			: personService
-					.create(personObj)
-					.then((newPerson) => setPersons(persons.concat(newPerson)))
+			: personService.create(personObj).then((newPerson) => {
+					setSearchTerm("")
+					return setPersons(persons.concat(newPerson))
+			  })
+	}
+
+	const removePerson = (person) => {
+		event.preventDefault()
+		if (window.confirm(`Delete ${person.name}?`)) {
+			personService
+				.remove(person.id)
+				.then(
+					setPersons(
+						persons.filter((keepPerson) => keepPerson.id !== person.id)
+					)
+				)
+		}
 	}
 
 	return (
@@ -72,7 +86,7 @@ const App = () => {
 				numChangeHandler={handleNumberChange}
 			/>
 			<h3>Numbers</h3>
-			<People peopleToShow={peopleToShow} />
+			<People peopleToShow={peopleToShow} handleRemovePerson={removePerson} />
 		</>
 	)
 }

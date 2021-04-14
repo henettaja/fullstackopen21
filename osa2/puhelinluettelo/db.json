@@ -6,11 +6,6 @@
       "id": 1
     },
     {
-      "name": "Henri Väisänen",
-      "number": "044-5222518",
-      "id": 2
-    },
-    {
       "name": "Salla-Mari Uitto",
       "number": "040-12345678",
       "id": 3
@@ -32,8 +27,23 @@
     },
     {
       "name": "Matti Meikäläinen",
-      "number": "12-34-5678901",
+      "number": "123-4567890",
       "id": 7
+    },
+    {
+      "name": "Henri Väisänen",
+      "number": "044-5222518",
+      "id": 8
+    },
+    {
+      "name": "Tuomas Kansanoja",
+      "number": "044-12345678",
+      "id": 9
+    },
+    {
+      "name": "Robert Hiltunen",
+      "number": "020-202020",
+      "id": 10
     }
   ]
 }
