@@ -7,7 +7,7 @@
     },
     {
       "name": "Salla-Mari Uitto",
-      "number": "040-12345678",
+      "number": "041-5483428",
       "id": 3
     },
     {
@@ -44,6 +44,11 @@
       "name": "Robert Hiltunen",
       "number": "020-202020",
       "id": 10
+    },
+    {
+      "name": "Pekka Väisänen",
+      "number": "044-0400168",
+      "id": 11
     }
   ]
 }
