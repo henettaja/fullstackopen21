@@ -14,32 +14,35 @@ const App = () => {
 	const [searchTerm, setSearchTerm] = useState("")
 
 	useEffect(() => {
-		personService.getAll().then((initialPersons) => setPersons(initialPersons))
+		personService.getAll().then(initialPersons => setPersons(initialPersons))
 	}, [])
 
 	useEffect(() => {
 		handleSearchFilter()
 	}, [searchTerm, persons])
 
-	const handleNameChange = (event) => {
+	const handleNameChange = event => {
 		setNewName(event.target.value)
 	}
 
-	const handleNumberChange = (event) => {
+	const handleNumberChange = event => {
 		setNewNumber(event.target.value)
 	}
 
-	const handleSearchChange = (event) => {
+	const handleSearchChange = event => {
 		setSearchTerm(event.target.value)
+	}
+
+	const resetInputFields = () => {
+		setNewName("")
+		setNewNumber("")
 	}
 
 	const handleSearchFilter = () => {
 		setPeopleToShow(
 			!searchTerm.length
 				? persons
-				: persons.filter((person) =>
-						person.name.toLowerCase().includes(searchTerm.toLowerCase())
-				  )
+				: persons.filter(person => person.name.toLowerCase().includes(searchTerm.toLowerCase()))
 		)
 	}
 
@@ -49,34 +52,37 @@ const App = () => {
 			name: newName,
 			number: newNumber,
 		}
-		persons.some((person) => person.name === newName)
-			? alert(`${newName} is already in the phonebook`)
-			: personService.create(personObj).then((newPerson) => {
-					setSearchTerm("")
+
+		if (persons.some(person => person.name === newName))
+			if (window.confirm(`${newName} is already in the phonebook, update their number?`)) {
+				const existingPerson = persons.find(person => person.name === personObj.name)
+				personService.update(existingPerson.id, personObj).then(updatedPerson => {
+					resetInputFields()
+					return setPersons(
+						persons.map(person => (person.id !== existingPerson.id ? person : updatedPerson))
+					)
+				})
+			} else {
+				personService.create(personObj).then(newPerson => {
+					resetInputFields()
 					return setPersons(persons.concat(newPerson))
-			  })
+				})
+			}
 	}
 
-	const removePerson = (person) => {
+	const removePerson = person => {
 		event.preventDefault()
 		if (window.confirm(`Delete ${person.name}?`)) {
 			personService
 				.remove(person.id)
-				.then(
-					setPersons(
-						persons.filter((keepPerson) => keepPerson.id !== person.id)
-					)
-				)
+				.then(setPersons(persons.filter(keepPerson => keepPerson.id !== person.id)))
 		}
 	}
 
 	return (
 		<>
 			<h2>Phonebook</h2>
-			<SearchForm
-				searchValue={searchTerm}
-				searchChangeHandler={handleSearchChange}
-			/>
+			<SearchForm searchValue={searchTerm} searchChangeHandler={handleSearchChange} />
 			<h3>Add a new contact</h3>
 			<AddPersonForm
 				nameValue={newName}
