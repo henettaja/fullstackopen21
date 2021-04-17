@@ -32,23 +32,8 @@
     },
     {
       "name": "Henri Väisänen",
-      "number": "044-5222518",
-      "id": 8
-    },
-    {
-      "name": "Tuomas Kansanoja",
-      "number": "044-12345678",
-      "id": 9
-    },
-    {
-      "name": "Robert Hiltunen",
-      "number": "020-202020",
-      "id": 10
-    },
-    {
-      "name": "Pekka Väisänen",
       "number": "044-0400168",
-      "id": 11
+      "id": 8
     }
   ]
 }

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react"
 import AddPersonForm from "./components/AddPersonForm"
 import People from "./components/People"
 import SearchForm from "./components/SearchForm"
+import StatusText from "./components/StatusText"
 
 import personService from "./services/personsService"
 
@@ -12,6 +13,7 @@ const App = () => {
 	const [newName, setNewName] = useState("")
 	const [newNumber, setNewNumber] = useState("")
 	const [searchTerm, setSearchTerm] = useState("")
+	const [status, setStatus] = useState({ msg: null, err: false })
 
 	useEffect(() => {
 		personService.getAll().then(initialPersons => setPersons(initialPersons))
@@ -20,6 +22,13 @@ const App = () => {
 	useEffect(() => {
 		handleSearchFilter()
 	}, [searchTerm, persons])
+
+	const handleStatusText = (message, error) => {
+		setStatus({ msg: message, err: error })
+		setTimeout(() => {
+			setStatus({ msg: null, err: false })
+		}, 7000)
+	}
 
 	const handleNameChange = event => {
 		setNewName(event.target.value)
@@ -53,21 +62,24 @@ const App = () => {
 			number: newNumber,
 		}
 
-		if (persons.some(person => person.name === newName))
+		if (persons.some(person => person.name === newName)) {
 			if (window.confirm(`${newName} is already in the phonebook, update their number?`)) {
 				const existingPerson = persons.find(person => person.name === personObj.name)
 				personService.update(existingPerson.id, personObj).then(updatedPerson => {
 					resetInputFields()
+					handleStatusText(`Updated ${existingPerson.name}'s phone number`, false)
 					return setPersons(
 						persons.map(person => (person.id !== existingPerson.id ? person : updatedPerson))
 					)
 				})
-			} else {
-				personService.create(personObj).then(newPerson => {
-					resetInputFields()
-					return setPersons(persons.concat(newPerson))
-				})
 			}
+		} else {
+			personService.create(personObj).then(newPerson => {
+				resetInputFields()
+				handleStatusText(`Added ${personObj.name} to phonebook`, false)
+				return setPersons(persons.concat(newPerson))
+			})
+		}
 	}
 
 	const removePerson = person => {
@@ -76,12 +88,17 @@ const App = () => {
 			personService
 				.remove(person.id)
 				.then(setPersons(persons.filter(keepPerson => keepPerson.id !== person.id)))
+				.then(handleStatusText(`Removed ${person.name} from phonebook`, false))
+				.catch(error =>
+					handleStatusText(`${person.name} has already been removed from the server`, true)
+				)
 		}
 	}
 
 	return (
 		<>
 			<h2>Phonebook</h2>
+			<StatusText status={status} />
 			<SearchForm searchValue={searchTerm} searchChangeHandler={handleSearchChange} />
 			<h3>Add a new contact</h3>
 			<AddPersonForm
