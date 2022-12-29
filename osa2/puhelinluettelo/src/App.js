@@ -71,6 +71,8 @@ const App = () => {
 					return setPersons(
 						persons.map(person => (person.id !== existingPerson.id ? person : updatedPerson))
 					)
+				}).catch(response => {
+					handleStatusText(`${existingPerson.name}'s has already been removed from the server`, true)
 				})
 			}
 		} else {
@@ -78,7 +80,9 @@ const App = () => {
 				resetInputFields()
 				handleStatusText(`Added ${personObj.name} to phonebook`, false)
 				return setPersons(persons.concat(newPerson))
-			})
+			}).catch(response => {
+					handleStatusText(`An error happened while trying to add the name ${personObj.name} to the phonebook`, true)
+				})
 		}
 	}
 
