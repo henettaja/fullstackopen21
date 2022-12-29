@@ -25,7 +25,8 @@
     "babel-preset-nano-react-app": "^0.1.0",
     "json-server": "^0.16.3",
     "parcel": "^2.0.0-alpha.3.2",
-    "postcss": "^8.2.10"
+    "postcss": "^8.2.10",
+    "process": "^0.11.10"
   },
   "babel": {
     "presets": [
