@@ -68,9 +68,7 @@ const App = () => {
 				personService.update(existingPerson.id, personObj).then(updatedPerson => {
 					resetInputFields()
 					handleStatusText(`Updated ${existingPerson.name}'s phone number`, false)
-					return setPersons(
-						persons.map(person => (person.id !== existingPerson.id ? person : updatedPerson))
-					)
+					setPersons(persons.map(person => (person.id !== existingPerson.id ? person : updatedPerson)))
 				}).catch(response => {
 					handleStatusText(`${existingPerson.name}'s has already been removed from the server`, true)
 				})
@@ -79,7 +77,7 @@ const App = () => {
 			personService.create(personObj).then(newPerson => {
 				resetInputFields()
 				handleStatusText(`Added ${personObj.name} to phonebook`, false)
-				return setPersons(persons.concat(newPerson))
+				 setPersons(persons.concat(newPerson))
 			}).catch(response => {
 					handleStatusText(`An error happened while trying to add the name ${personObj.name} to the phonebook`, true)
 				})
