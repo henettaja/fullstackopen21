@@ -69,17 +69,18 @@ const App = () => {
 					resetInputFields()
 					handleStatusText(`Updated ${existingPerson.name}'s phone number`, false)
 					setPersons(persons.map(person => (person.id !== existingPerson.id ? person : updatedPerson)))
-				}).catch(response => {
-					handleStatusText(`${existingPerson.name}'s has already been removed from the server`, true)
+				}).catch(error => {
+					handleStatusText(error.response.data.error, true)
 				})
 			}
 		} else {
-			personService.create(personObj).then(newPerson => {
-				resetInputFields()
-				handleStatusText(`Added ${personObj.name} to phonebook`, false)
-				 setPersons(persons.concat(newPerson))
-			}).catch(response => {
-					handleStatusText(`An error happened while trying to add the name ${personObj.name} to the phonebook`, true)
+			personService.create(personObj)
+				.then(newPerson => {
+					resetInputFields()
+					handleStatusText(`Added ${personObj.name} to phonebook`, false)
+					setPersons(persons.concat(newPerson))
+			}).catch(error => {
+					handleStatusText(error.response.data.error, true)
 				})
 		}
 	}
@@ -89,9 +90,9 @@ const App = () => {
 		if (window.confirm(`Delete ${person.name}?`)) {
 			personService
 				.remove(person.id)
-				.then(setPersons(persons.filter(keepPerson => keepPerson.id !== person.id)))
-				.then(handleStatusText(`Removed ${person.name} from phonebook`, false))
-				.catch(error =>
+				.then(() => setPersons(persons.filter(keepPerson => keepPerson.id !== person.id)))
+				.then(() => handleStatusText(`Removed ${person.name} from phonebook`, false))
+				.catch(_error =>
 					handleStatusText(`${person.name} has already been removed from the server`, true)
 				)
 		}
