@@ -1,3 +1,6 @@
 [submodule "osa3"]
 	path = osa3
 	url = https://github.com/henettaja/fullstackopen_part3_backend
+[submodule "osa4"]
+	path = osa4
+	url = https://github.com/henettaja/fullstackopen_part4
